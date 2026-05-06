@@ -67,15 +67,15 @@
             Your browser does not support the video tag.
           </video>
 
-          <div class="hero-content container mb-5" data-speed="1.1">
-            <div class="row g-5">
-              <div class="col-8">
+          <div class="hero-content container" data-speed="1.1">
+            <div class="row g-4 g-lg-5 align-items-center">
+              <div class="col-12 col-lg-8">
                 <h1 class="split">
                   Enfrentamos la <strong> incertidumbre</strong> dándole forma
                   al futuro
                 </h1>
               </div>
-              <div class="col">
+              <div class="col-12 col-lg-4">
                 <div class="carousel-cards">
                   <div class="card card-tab active">
                     <div class="card-body">
@@ -126,38 +126,98 @@
           <section class="py-5 mt-4">
             <div class="container">
               <h2 class="mb-5">Sobre <strong> Nosotros</strong></h2>
-              <div class="accordeon-nav">
-                <div class="navegador">
-                  <a class="active link-a" href="#">Somos expertos</a>
-
-                  <a class="link-a" href="#">Somos globales</a>
-                  <a class="link-a" href="#">Somos Integrles</a>
-                  <a class="link-a last-link" href="#"
-                    >El futuro, nuestra pasión</a
+              <div
+                class="accordeon-nav"
+                role="tablist"
+                aria-label="Sobre Nosotros"
+              >
+                <div class="about-tab">
+                  <a
+                    class="active link-a"
+                    id="tab-somos-expertos"
+                    href="#panel-somos-expertos"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="panel-somos-expertos"
+                    >Somos expertos</a
                   >
-                </div>
-                <div class="preview">
-                  <div class="tab-nav active">
+                  <div
+                    class="tab-nav active"
+                    id="panel-somos-expertos"
+                    role="tabpanel"
+                    aria-labelledby="tab-somos-expertos"
+                  >
                     <p>
                       Más de 15 años de experiencia acumulada, reconocida y
                       premiada en las mejores prácticas profesionales a lo largo
                       de varias jurisdicciones alrededor del mundo
                     </p>
                   </div>
-                  <div class="tab-nav">
+                </div>
+                <div class="about-tab">
+                  <a
+                    class="link-a"
+                    id="tab-somos-globales"
+                    href="#panel-somos-globales"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-somos-globales"
+                    >Somos globales</a
+                  >
+                  <div
+                    class="tab-nav"
+                    id="panel-somos-globales"
+                    role="tabpanel"
+                    aria-labelledby="tab-somos-globales"
+                    hidden
+                  >
                     <p>
                       No solamente estamos donde usted necesita: ser global es
                       abordar los desafíos integralmente
                     </p>
                   </div>
-                  <div class="tab-nav">
+                </div>
+                <div class="about-tab">
+                  <a
+                    class="link-a"
+                    id="tab-somos-integrales"
+                    href="#panel-somos-integrales"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-somos-integrales"
+                    >Somos Integrales</a
+                  >
+                  <div
+                    class="tab-nav"
+                    id="panel-somos-integrales"
+                    role="tabpanel"
+                    aria-labelledby="tab-somos-integrales"
+                    hidden
+                  >
                     <p>
                       Las empresas no operan en el vacío. Las finanzas, la
                       tributación y el contexto económico se interrelacionan en
                       un mundo cada vez más compleo
                     </p>
                   </div>
-                  <div class="tab-nav">
+                </div>
+                <div class="about-tab">
+                  <a
+                    class="link-a last-link"
+                    id="tab-futuro"
+                    href="#panel-futuro"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-futuro"
+                    >El futuro, nuestra pasión</a
+                  >
+                  <div
+                    class="tab-nav"
+                    id="panel-futuro"
+                    role="tabpanel"
+                    aria-labelledby="tab-futuro"
+                    hidden
+                  >
                     <p>
                       Anticipamos Riesgos Creamos sostenibilidad Desarrollamos
                       tecnología Acompañamos a prosperar Mitigamos la
@@ -178,7 +238,7 @@
                   <div class="card">
                     <img
                       class="card-img-top"
-                      src="placeholder.png"
+                      src="placeholder1.jpeg"
                       alt="Card image"
                     />
                     <div class="card-body">
@@ -193,10 +253,10 @@
                 </div>
 
                 <div class="col">
-                  <div class="card">
+                  <div class="card card-blue">
                     <img
                       class="card-img-top"
-                      src="placeholder.png"
+                      src="placeholder2.jpeg"
                       alt="Card image"
                     />
                     <div class="card-body">
@@ -211,10 +271,10 @@
                 </div>
 
                 <div class="col">
-                  <div class="card">
+                  <div class="card card-orange">
                     <img
                       class="card-img-top"
-                      src="placeholder.png"
+                      src="placeholder3.jpeg"
                       alt="Card image"
                     />
                     <div class="card-body">
@@ -229,10 +289,10 @@
                 </div>
 
                 <div class="col">
-                  <div class="card">
+                  <div class="card card-blue">
                     <img
                       class="card-img-top"
-                      src="placeholder.png"
+                      src="placeholder2.jpeg"
                       alt="Card image"
                     />
                     <div class="card-body">
@@ -258,11 +318,11 @@
                 Nuestros <strong>Servicios</strong>
               </h2>
               <div
-                class="row row row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 g-2"
+                class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 g-2"
               >
                 <div class="col">
                   <div class="card card-service">
-                    <img src="placeholder.png" class="card-img" alt="..." />
+                    <img src="placeholder1.jpeg" class="card-img" alt="..." />
                     <div class="card-img-overlay">
                       <h3 class="h5 card-title text-white">
                         Precios de Transferencia
@@ -274,7 +334,7 @@
 
                 <div class="col">
                   <div class="card card-service">
-                    <img src="placeholder.png" class="card-img" alt="..." />
+                    <img src="placeholder2.jpeg" class="card-img" alt="..." />
                     <div class="card-img-overlay">
                       <h3 class="h5 card-title text-white">
                         Precios de Transferencia
@@ -286,7 +346,7 @@
 
                 <div class="col">
                   <div class="card card-service">
-                    <img src="placeholder.png" class="card-img" alt="..." />
+                    <img src="placeholder3.jpeg" class="card-img" alt="..." />
                     <div class="card-img-overlay">
                       <h3 class="h5 card-title text-white">
                         Precios de Transferencia
@@ -298,7 +358,7 @@
 
                 <div class="col">
                   <div class="card card-service">
-                    <img src="placeholder.png" class="card-img" alt="..." />
+                    <img src="placeholder1.jpeg" class="card-img" alt="..." />
                     <div class="card-img-overlay">
                       <h3 class="h5 card-title text-white">
                         Precios de Transferencia
@@ -313,8 +373,7 @@
           <section class="py-section">
             <form class="container my-4">
               <div
-                class="row row-cols-md-2 row-cols-1 gx-5"
-                style="align-items: center"
+                class="row row-cols-md-2 row-cols-1 gx-5 gy-4 align-items-center"
               >
                 <div class="col">
                   <h2 class="mb-4 one-liner">
@@ -405,7 +464,7 @@
 
         <footer class="py-section">
           <div class="container">
-            <div class="row row-cols-lg-3 mb-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
               <div class="col">
                 <img class="mb-4" src="logo-footer.svg" width="200" />
                 <p>+569 9584 6642</p>

@@ -1,34 +1,96 @@
 document.addEventListener("DOMContentLoaded", (event) => {
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText);
-  // gsap code here!
+  const hasGsap =
+    window.gsap &&
+    window.ScrollTrigger &&
+    window.ScrollSmoother &&
+    window.ScrollToPlugin &&
+    window.SplitText;
 
-  let smoother = ScrollSmoother.create({
-    wrapper: ".wrapper",
-    content: ".content",
-    smooth: 1.1,
-    effects: true,
-  });
+  if (hasGsap) {
+    gsap.registerPlugin(
+      ScrollTrigger,
+      ScrollSmoother,
+      ScrollToPlugin,
+      SplitText
+    );
 
-  if (document.querySelector(".accordeon-nav")) {
-    const links = document.querySelectorAll(".link-a");
-    const tabs = document.querySelectorAll(".tab-nav");
-
-    links.forEach((link, index) => {
-      link.addEventListener("mouseenter", () => {
-        links.forEach((t) => {
-          t.classList.remove("active");
-        });
-
-        link.classList.add("active");
-
-        tabs.forEach((t) => {
-          t.classList.remove("active");
-        });
-
-        tabs[index].classList.add("active");
-      });
+    ScrollSmoother.create({
+      wrapper: ".wrapper",
+      content: ".content",
+      smooth: 1.1,
+      effects: true,
     });
   }
+
+  document.querySelectorAll(".accordeon-nav").forEach((accordeon) => {
+    const links = Array.from(accordeon.querySelectorAll(".link-a"));
+    const tabs = Array.from(accordeon.querySelectorAll(".tab-nav"));
+
+    if (!links.length || !tabs.length) return;
+
+    function activateTab(activeIndex) {
+      links.forEach((link, index) => {
+        const isActive = index === activeIndex;
+
+        link.classList.toggle("active", isActive);
+        link.setAttribute("aria-selected", isActive ? "true" : "false");
+        link.tabIndex = isActive ? 0 : -1;
+      });
+
+      tabs.forEach((tab, index) => {
+        const isActive = index === activeIndex;
+
+        tab.classList.toggle("active", isActive);
+        tab.hidden = !isActive;
+      });
+    }
+
+    function focusTab(index) {
+      const nextIndex = (index + links.length) % links.length;
+
+      activateTab(nextIndex);
+      links[nextIndex].focus();
+    }
+
+    links.forEach((link, index) => {
+      link.addEventListener("mouseenter", () => activateTab(index));
+      link.addEventListener("focus", () => activateTab(index));
+
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        activateTab(index);
+      });
+
+      link.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          event.preventDefault();
+          focusTab(index + 1);
+        }
+
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          event.preventDefault();
+          focusTab(index - 1);
+        }
+
+        if (event.key === "Home") {
+          event.preventDefault();
+          focusTab(0);
+        }
+
+        if (event.key === "End") {
+          event.preventDefault();
+          focusTab(links.length - 1);
+        }
+      });
+    });
+
+    const initialIndex = Math.max(
+      links.findIndex((link) => link.classList.contains("active")),
+      0
+    );
+
+    activateTab(initialIndex);
+  });
 
   if (document.querySelector(".carousel-cards")) {
     const carousel = document.querySelector(".carousel-cards");
@@ -111,7 +173,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   }
 
-  if (document.querySelector(".split")) {
+  if (hasGsap && document.querySelector(".split")) {
     // split all elements with the class "split" into words and characters
     let split = SplitText.create(".split", { type: "words, chars" });
 
@@ -124,20 +186,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
       stagger: 0.1, // 0.05 seconds between each
     });
   }
-  document.querySelectorAll(".row").forEach((row) => {
-    gsap.from(row.querySelectorAll(".col"), {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: row,
-        start: "top 90%",
-        once: true,
-      },
+  if (hasGsap) {
+    document.querySelectorAll(".row").forEach((row) => {
+      gsap.from(row.querySelectorAll(".col"), {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: row,
+          start: "top 90%",
+          once: true,
+        },
+      });
     });
-  });
+  }
 
   //end of DOM CONTENT LOADED
 });
