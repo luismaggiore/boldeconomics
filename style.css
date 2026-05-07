@@ -201,7 +201,7 @@ h2 {
 }
 h1 {
   font-family: "Funnel Display", sans-serif;
-  font-size: clamp(40px, 7vw, 88px);
+  font-size: clamp(40px, 7vw, 68px);
   max-width: 960px;
   margin: 0;
   line-height: 1.02;
@@ -417,7 +417,7 @@ footer .nav-link {
   }
 
   h1 {
-    font-size: clamp(40px, 12vw, 64px);
+    font-size: clamp(40px, 12vw, 60px);
   }
 
   .one-liner {
@@ -515,4 +515,19 @@ footer .nav-link {
   .container {
     --bs-gutter-x: 1.5rem;
   }
+}
+.carousel-cards .card{
+  background-color: rgba(100, 100, 100, 0.02) !important; 
+  backdrop-filter: blur(20px) ;
+  color:white !important;
+  border: rgba(255, 255, 255, 0.432) 1px solid !important;
+}
+.carousel-cards .btn-bold {
+  background-color: #0b254500;
+  color: white !important;
+}
+.carousel-cards .btn-bold:hover {
+  background-color: #0b254500;
+  color: white !important;
+  border: white solid 1px !important;
 }
