@@ -70,7 +70,6 @@
         display: grid;
         grid-template-columns: minmax(280px, 0.42fr) 1fr;
         min-height: 440px;
-        background-color: whitesmoke;
       }
       .services-list {
         display: flex;
@@ -241,7 +240,7 @@
 
         <main>
           <!-- SERVICES ACCORDEON -->
-          <section class="py-section" style="padding-top: clamp(48px,6vw,80px) !important; padding-bottom: 0 !important;">
+          <section>
             <div class="container-fluid px-0">
               <div class="services-layout" role="tablist" aria-label="Servicios Bold">
 
@@ -271,7 +270,8 @@
                 </div>
 
                 <!-- RIGHT: panels -->
-                <div>
+                <div style="        background-color: whitesmoke;
+">
                   <!-- Panel PT -->
                   <div class="service-panel active" id="panel-pt" role="tabpanel">
                     <h3>Precios de Transferencia y Tributación Internacional</h3>
