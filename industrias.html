@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Industrias | Bold Economics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── HERO ──────────────────────────────────────────────────── */
+      .hero-industrias {
+        position:relative; overflow:hidden;
+        background-color:var(--color-azul-marino); color:var(--color-marfil);
+        padding:clamp(120px,14vw,180px) 0 clamp(60px,8vw,100px);
+        min-height:clamp(360px,50vh,540px); display:flex; align-items:flex-end;
+      }
+      .hero-industrias::after { content:""; position:absolute; inset:0; background:linear-gradient(135deg,#0b2545 45%,#2d3142 100%); z-index:0; }
+      .hero-industrias .container { position:relative; z-index:1; }
+      .breadcrumb-bold { font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-azul-grisaceo); margin-bottom:16px; }
+      .breadcrumb-bold a { color:var(--color-azul-grisaceo); text-decoration:none; }
+      .breadcrumb-bold a:hover { color:var(--color-marfil); }
+
+      /* ── INDUSTRIES ACCORDEON ───────────────────────────────────── */
+      .industries-layout {
+        display:grid;
+        grid-template-columns: minmax(280px,0.42fr) 1fr;
+        min-height:480px;
+        background-color:whitesmoke;
+      }
+      .industries-list {
+        display:flex; flex-direction:column;
+        border-right:1px solid rgba(194,194,194,0.3);
+      }
+      .industry-link {
+        display:flex; align-items:center; justify-content:space-between;
+        text-decoration:none; color:var(--color-azul-oscuro); font-weight:500;
+        font-size:clamp(14px,1.3vw,17px); font-family:var(--font-display);
+        min-height:56px; padding:14px clamp(16px,2.2vw,28px);
+        border-bottom:1px solid rgba(194,194,194,0.25);
+        background-color:var(--color-marfil);
+        transition:all 200ms ease; line-height:1.2;
+      }
+      .industry-link:last-child { border-bottom:none; }
+      .industry-link .arrow-icon { flex-shrink:0; margin-left:10px; font-size:16px; opacity:0; transform:translateX(-5px); transition:all 200ms ease; color:var(--color-rojo-coral); }
+      .industry-link:hover, .industry-link.active {
+        background-color:whitesmoke; color:var(--color-rojo-coral); border-bottom-color:var(--color-rojo-coral);
+      }
+      .industry-link:hover .arrow-icon, .industry-link.active .arrow-icon { opacity:1; transform:translateX(0); }
+
+      /* RIGHT PANEL */
+      .industry-panel {
+        display:none; padding:clamp(32px,4vw,56px) clamp(28px,4vw,56px);
+        flex-direction:column; justify-content:center;
+        animation:slideIn 220ms ease;
+      }
+      .industry-panel.active { display:flex; }
+      .industry-panel .panel-tag {
+        display:inline-block; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+        background:var(--color-rojo-coral); color:white; padding:4px 10px; margin-bottom:18px; align-self:flex-start;
+      }
+      .industry-panel h3 {
+        font-family:var(--font-display); color:var(--color-azul-oscuro);
+        font-size:clamp(24px,2.8vw,38px); margin-bottom:16px; line-height:1.1;
+      }
+      .industry-panel p {
+        font-size:clamp(15px,1.3vw,18px); color:var(--color-azul-oscuro);
+        max-width:560px; line-height:1.55; margin-bottom:28px;
+      }
+      .industry-panel .industry-services {
+        display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px;
+      }
+      .industry-badge {
+        font-size:12px; padding:5px 12px;
+        border:1px solid rgba(194,194,194,0.4);
+        color:var(--color-azul-oscuro); background:transparent;
+        font-weight:500; transition:all 180ms ease;
+      }
+      .industry-badge:hover { border-color:var(--color-rojo-coral); color:var(--color-rojo-coral); }
+
+      /* ── INDUSTRIES GRID (mobile / alt view) ───────────────────── */
+      .industries-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+        gap:2px;
+        background-color:rgba(194,194,194,0.2);
+      }
+      .industry-card {
+        background-color:whitesmoke;
+        padding:clamp(20px,2.4vw,30px) clamp(18px,2vw,26px);
+        text-decoration:none; color:var(--color-azul-oscuro);
+        display:flex; flex-direction:column; gap:10px;
+        transition:all 220ms ease;
+        border-left:3px solid transparent;
+      }
+      .industry-card:hover {
+        background-color:var(--color-marfil);
+        border-left-color:var(--color-rojo-coral);
+        color:var(--color-azul-marino);
+      }
+      .industry-card .ic-num { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-azul-grisaceo); font-weight:700; }
+      .industry-card .ic-title { font-family:var(--font-display); font-size:clamp(14px,1.2vw,17px); font-weight:600; line-height:1.25; }
+      .industry-card .ic-arrow { font-size:16px; color:var(--color-rojo-coral); opacity:0; transform:translateX(-4px); transition:all 200ms ease; }
+      .industry-card:hover .ic-arrow { opacity:1; transform:translateX(0); }
+
+      @media (max-width:767.98px) {
+        .industries-layout { grid-template-columns:1fr; min-height:auto; }
+        .industry-link { font-size:16px; min-height:54px; }
+        .industry-panel { padding:22px 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-color">
+          <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="logo.svg" width="100" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navMenu">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="servicios.html">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link active" href="industrias.html">Industrias</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Red Internacional</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- HERO -->
+        <header class="hero-industrias">
+          <div class="container">
+            <p class="breadcrumb-bold"><a href="index.html">Inicio</a> / Industrias</p>
+            <h1 class="split" style="font-size:clamp(38px,6vw,64px); max-width:720px;">
+              Nuestras <strong>Industrias</strong>
+            </h1>
+            <p class="mt-3" style="max-width:580px; font-size:clamp(15px,1.4vw,19px); color:var(--color-azul-grisaceo); line-height:1.5;">
+              Entendemos las particularidades de cada negocio a partir de nuestra experiencia con clientes en todos los sectores económicos. Soluciones personalizadas a lo largo de los sectores que impulsan el crecimiento de Chile y Latinoamérica.
+            </p>
+          </div>
+        </header>
+
+        <main>
+          <!-- INDUSTRIES ACCORDEON -->
+          <section class="py-section" style="padding-top:clamp(48px,6vw,80px)!important; padding-bottom:0!important;">
+            <div class="container-fluid px-0">
+              <div class="industries-layout" id="industriesAccordeon" role="tablist" aria-label="Industrias Bold">
+
+                <!-- LEFT LIST -->
+                <div class="industries-list">
+                  <a class="industry-link active" data-panel="panel-infraestructura" role="tab" href="#">
+                    Infraestructura y Concesionarios <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-salmonicultura" role="tab" href="#">
+                    Salmonicultura <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-automovil" role="tab" href="#">
+                    Automóvil y Maquinaria <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-mineria-apoyo" role="tab" href="#">
+                    Servicios de Apoyo a la Minería <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-mineria" role="tab" href="#">
+                    Minería <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-energias" role="tab" href="#">
+                    Energías Renovables <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-laboratorios" role="tab" href="#">
+                    Laboratorios Farmacéuticos <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-servicios-emp" role="tab" href="#">
+                    Servicios Empresariales <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-sogo" role="tab" href="#">
+                    SOGO SHOSHA <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-manufactura" role="tab" href="#">
+                    Industria Manufacturera <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-comercio" role="tab" href="#">
+                    Comercio Internacional <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                  <a class="industry-link" data-panel="panel-fruticultura" role="tab" href="#">
+                    Industria Frutícola <i class="bi bi-arrow-right arrow-icon"></i>
+                  </a>
+                </div>
+
+                <!-- RIGHT PANELS -->
+                <div>
+                  <div class="industry-panel active" id="panel-infraestructura">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Infraestructura y Concesionarios</h3>
+                    <p>Asesoramos en estructuración de transacciones, valoraciones y análisis de precios de transferencia para proyectos de infraestructura y concesiones, considerando las complejidades regulatorias y financieras del sector.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Asesoría Financiera</span>
+                      <span class="industry-badge">Consultoría Económica</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-salmonicultura">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Salmonicultura</h3>
+                    <p>Amplia experiencia en el sector salmonero chileno: desde documentación de precios de transferencia para operaciones con casas matrices internacionales, hasta análisis económicos de mercado y estructura de costos del sector.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Tributación Internacional</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-automovil">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Automóvil y Maquinaria</h3>
+                    <p>Asesoramos a importadoras, distribuidoras y filiales de grupos automotrices en sus obligaciones de precios de transferencia, análisis de comparables y estructuración de márgenes de distribución conforme a estándares OCDE.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Valoración de Activos</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-mineria-apoyo">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Servicios de Apoyo a la Minería</h3>
+                    <p>Trabajamos con empresas que proveen servicios especializados al sector minero: análisis de precios de transferencia en contratos de servicios intragrupo, análisis de rentabilidad y benchmarking de márgenes.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Consultoría Económica</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-mineria">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Minería</h3>
+                    <p>Presencia en los grandes grupos mineros que operan en Chile: documentación de precios de transferencia en comercialización de commodities, análisis funcional de estructuras complejas y defensa en auditorías.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Tributación Internacional</span>
+                      <span class="industry-badge">Valoración</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-energias">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Energías Renovables</h3>
+                    <p>Asesoramos a desarrolladores, inversores y operadores de proyectos de energía renovable en sus estructuras financieras y tributarias, desde la etapa de desarrollo hasta la operación de parques eólicos, solares y otros.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Modelación Financiera</span>
+                      <span class="industry-badge">Estructuración</span>
+                      <span class="industry-badge">Precios de Transferencia</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-laboratorios">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Laboratorios Farmacéuticos</h3>
+                    <p>Experiencia en precios de transferencia para el sector farmacéutico: intangibles relacionados con patentes y licencias, análisis de comparables en distribución, y apoyo en auditorías de la autoridad tributaria.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Intangibles</span>
+                      <span class="industry-badge">Controversias</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-servicios-emp">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Servicios Empresariales</h3>
+                    <p>Asesoramos a empresas de servicios profesionales, consultoría y tecnología en sus estructuras intercompañía, análisis de márgenes de servicios y cumplimiento de obligaciones de precios de transferencia locales e internacionales.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Consultoría Económica</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-sogo">
+                    <span class="panel-tag">Industria</span>
+                    <h3>SOGO SHOSHA</h3>
+                    <p>Conocemos en profundidad las estructuras de las grandes casas de comercio japonesas y sus particularidades operativas en Chile y Latinoamérica. Asesoramos en precios de transferencia y tributación internacional para sus filiales regionales.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Tributación Internacional</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-manufactura">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Industria Manufacturera</h3>
+                    <p>Acompañamos a grupos industriales en la documentación y defensa de sus políticas de precios de transferencia para bienes manufacturados, con foco en análisis funcional y selección de métodos aplicables.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Value Chain Alignment</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-comercio">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Comercio Internacional</h3>
+                    <p>Asesoramos en estructuras de importación y distribución internacional, precios de transferencia en operaciones de compraventa de mercaderías y análisis de condiciones de libre competencia para comercio transfronterizo.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Consultoría Económica</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+
+                  <div class="industry-panel" id="panel-fruticultura">
+                    <span class="panel-tag">Industria</span>
+                    <h3>Industria Frutícola</h3>
+                    <p>Presencia en el sector frutícola exportador chileno: análisis de precios de transferencia en ventas al exterior, estructuras de comercialización y documentación de acuerdo a estándares OCDE para grupos con operaciones internacionales.</p>
+                    <div class="industry-services">
+                      <span class="industry-badge">Precios de Transferencia</span>
+                      <span class="industry-badge">Tributación Internacional</span>
+                    </div>
+                    <a href="servicios.html" class="btn btn-bold">Ver servicios relacionados <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- CTA CONTACT -->
+          <section class="py-section">
+            <form class="container my-4">
+              <div class="row row-cols-md-2 row-cols-1 gx-5 gy-4 align-items-center">
+                <div class="col">
+                  <h2 class="mb-4 one-liner">
+                    Sea parte de nuestra historia de <strong>éxito</strong>.
+                    Démosle forma al <strong>futuro</strong>
+                  </h2>
+                </div>
+                <div class="col">
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="nombreApellido" class="form-label">Nombre y Apellido*</label>
+                      <input type="text" class="form-control" id="nombreApellido" placeholder="Ingrese su nombre y apellido" required />
+                    </div>
+                    <div class="col-12">
+                      <label for="correoInstitucional" class="form-label">Correo Institucional*</label>
+                      <input type="email" class="form-control" id="correoInstitucional" placeholder="Correo electrónico" required />
+                    </div>
+                    <div class="col-12">
+                      <label for="tema" class="form-label">¿Sobre qué vamos a hablar?*</label>
+                      <input type="text" class="form-control" id="tema" placeholder="Tema o necesidad" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fecha" class="form-label">¿Cuándo hay espacio en su agenda?*</label>
+                      <input type="date" class="form-control" id="fecha" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="hora" class="form-label">Hora*</label>
+                      <input type="time" class="form-control" id="hora" required />
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-bold">¡Hablemos!</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+        </main>
+
+        <footer class="py-section">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+              <div class="col">
+                <img class="mb-4" src="logo-footer.svg" width="200" />
+                <p>+569 9584 6642</p>
+                <a>info@boldeconomics.com</a><br />
+                <a class="mt-4" style="font-size:24px" href="https://www.linkedin.com/company/bold-economics/"><i class="bi bi-linkedin"></i></a>
+              </div>
+              <div class="col">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link" href="servicios.html">Servicios</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="industrias.html">Industrias</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Red Internacional</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container text-center">
+            <small>&copy; 2026 Bold Economics</small><br />
+            <small>Desarrollado por <a href="https://www.maggiore.cl">Maggiore</a></small>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollToPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/SplitText.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = Array.from(document.querySelectorAll(".industry-link"));
+        const panels = Array.from(document.querySelectorAll(".industry-panel"));
+
+        function activateIndustry(index) {
+          links.forEach((l, i) => l.classList.toggle("active", i === index));
+          panels.forEach((p, i) => p.classList.toggle("active", i === index));
+        }
+
+        links.forEach((link, index) => {
+          link.addEventListener("mouseenter", () => activateIndustry(index));
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            activateIndustry(index);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

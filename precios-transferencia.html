@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Precios de Transferencia y Tributación Internacional | Bold Economics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── HERO ──────────────────────────────────────────────────── */
+      .hero-inner {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--color-azul-marino);
+        color: var(--color-marfil);
+        padding: clamp(120px,14vw,180px) 0 clamp(60px,8vw,100px);
+        min-height: clamp(360px,48vh,520px);
+        display: flex;
+        align-items: flex-end;
+      }
+      .hero-inner::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #0b2545 50%, #2d3142 100%);
+        z-index: 0;
+      }
+      .hero-inner .container { position: relative; z-index: 1; }
+      .breadcrumb-bold { font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-azul-grisaceo); margin-bottom:16px; }
+      .breadcrumb-bold a { color:var(--color-azul-grisaceo); text-decoration:none; }
+      .breadcrumb-bold a:hover { color:var(--color-marfil); }
+      .hero-tag {
+        display:inline-block;
+        background:var(--color-rojo-coral);
+        color:white;
+        font-size:11px;
+        letter-spacing:.1em;
+        text-transform:uppercase;
+        font-weight:700;
+        padding:5px 12px;
+        margin-bottom:18px;
+      }
+
+      /* ── SUB-NAV GRID ────────────────────────────────────────── */
+      .sub-nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 2px;
+        background-color: rgba(194,194,194,0.2);
+        margin-bottom: 0;
+      }
+      .sub-nav-item {
+        background-color: whitesmoke;
+        padding: clamp(18px,2.4vw,28px) clamp(16px,2vw,24px);
+        text-decoration: none;
+        color: var(--color-azul-oscuro);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: all 220ms ease;
+        border-left: 3px solid transparent;
+        cursor: pointer;
+      }
+      .sub-nav-item:hover,
+      .sub-nav-item.active {
+        background-color: var(--color-marfil);
+        border-left-color: var(--color-rojo-coral);
+        color: var(--color-azul-marino);
+      }
+      .sub-nav-item .item-num {
+        font-size: 11px; letter-spacing:.1em; text-transform:uppercase; color:var(--color-azul-grisaceo); font-weight:600;
+      }
+      .sub-nav-item .item-title {
+        font-family: var(--font-display);
+        font-size: clamp(13px,1.1vw,16px);
+        font-weight:600;
+        line-height:1.25;
+      }
+
+      /* ── SERVICE DETAIL SECTION ─────────────────────────────── */
+      .service-detail { padding: clamp(48px,7vw,96px) 0; }
+      .detail-block {
+        scroll-margin-top: 90px;
+        padding: clamp(32px,4vw,56px) 0;
+        border-bottom: 1px solid rgba(194,194,194,0.3);
+      }
+      .detail-block:last-child { border-bottom: none; }
+      .detail-num {
+        font-size: 11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-rojo-coral); font-weight:700; margin-bottom:10px;
+      }
+      .detail-block h3 {
+        font-family: var(--font-display);
+        color: var(--color-azul-oscuro);
+        font-size: clamp(20px,2vw,28px);
+        margin-bottom: 16px;
+        line-height:1.15;
+      }
+      .detail-block p { font-size: clamp(15px,1.2vw,17px); line-height:1.65; color:var(--color-azul-oscuro); max-width:720px; }
+
+      /* ── SIDEBAR (desktop) ───────────────────────────────────── */
+      .service-sidebar {
+        position: sticky;
+        top: 90px;
+      }
+      .sidebar-title {
+        font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--color-azul-grisaceo); font-weight:700; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(194,194,194,0.3);
+      }
+      .sidebar-link {
+        display:block; text-decoration:none; color:var(--color-azul-oscuro); font-size:14px; line-height:1.35; padding:10px 0 10px 12px; border-left:2px solid transparent; transition:all 180ms ease;
+      }
+      .sidebar-link:hover { border-left-color:var(--color-rojo-coral); color:var(--color-rojo-coral); padding-left:16px; }
+      .sidebar-link.active { border-left-color:var(--color-rojo-coral); color:var(--color-rojo-coral); font-weight:600; }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+
+        <!-- NAV -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-color">
+          <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="logo.svg" width="100" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link active" href="servicios.html">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link" href="industrias.html">Industrias</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Red Internacional</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- HERO -->
+        <header class="hero-inner">
+          <div class="container">
+            <p class="breadcrumb-bold"><a href="index.html">Inicio</a> / <a href="servicios.html">Servicios</a> / Precios de Transferencia</p>
+            <span class="hero-tag">Servicio</span>
+            <h1 class="split" style="font-size:clamp(34px,5.5vw,58px); max-width:780px;">
+              Precios de Transferencia y <strong>Tributación Internacional</strong>
+            </h1>
+            <p class="mt-3" style="max-width:600px; font-size:clamp(15px,1.4vw,18px); color:var(--color-azul-grisaceo); line-height:1.55;">
+              Desde start-ups hasta grandes grupos multinacionales; desde una declaración jurada hasta la defensa en controversias por intangibles de difícil valoración.
+            </p>
+          </div>
+        </header>
+
+        <!-- SUB-NAV -->
+        <div class="sub-nav-grid" id="subNav">
+          <a class="sub-nav-item active" href="#obligaciones">
+            <span class="item-num">01</span>
+            <span class="item-title">Obligaciones Periódicas y Documentación</span>
+          </a>
+          <a class="sub-nav-item" href="#controversias">
+            <span class="item-num">02</span>
+            <span class="item-title">Controversias</span>
+          </a>
+          <a class="sub-nav-item" href="#value-chain">
+            <span class="item-num">03</span>
+            <span class="item-title">Value Chain Alignment</span>
+          </a>
+          <a class="sub-nav-item" href="#mpa-apa">
+            <span class="item-num">04</span>
+            <span class="item-title">Negociación de MPA y APA</span>
+          </a>
+          <a class="sub-nav-item" href="#planificacion">
+            <span class="item-num">05</span>
+            <span class="item-title">Planificación, Modelos Operativos y Restructuraciones</span>
+          </a>
+          <a class="sub-nav-item" href="#ajustes">
+            <span class="item-num">06</span>
+            <span class="item-title">Ajustes y Convenios de Doble Tributación</span>
+          </a>
+        </div>
+
+        <main>
+          <section class="service-detail">
+            <div class="container">
+              <div class="row gx-5">
+
+                <!-- MAIN CONTENT -->
+                <div class="col-lg-8">
+
+                  <div class="detail-block" id="obligaciones">
+                    <p class="detail-num">01 — Obligaciones Periódicas y Documentación</p>
+                    <h3>Obligaciones Periódicas y Documentación</h3>
+                    <p>Preparamos y mantenemos la documentación de precios de transferencia para cumplir con las exigencias locales y estándares OCDE: Estudio de precios de transferencia (Local File), Master File y CbCR (cuando aplique). Levantamos el análisis funcional (FAR), definimos la caracterización de las transacciones y sustentamos márgenes con benchmarking robusto, dejando trazabilidad y evidencia para auditorías.</p>
+                  </div>
+
+                  <div class="detail-block" id="controversias">
+                    <p class="detail-num">02 — Controversias</p>
+                    <h3>Controversias</h3>
+                    <p>Acompañamos integralmente en fiscalizaciones, requerimientos y auditorías de precios de transferencia, desde la estrategia hasta la respuesta técnica. Construimos la narrativa económica, defendemos comparables y métodos, cuantificamos impactos y proponemos alternativas para mitigar ajustes.</p>
+                  </div>
+
+                  <div class="detail-block" id="value-chain">
+                    <p class="detail-num">03 — Value Chain Alignment</p>
+                    <h3>Value Chain Alignment – Alineación de la Cadena de Valor</h3>
+                    <p>Asesoramos en la alineación de la cadena de valor del negocio con políticas tributarias que permitan la concordancia entre la forma, el fondo y la sustancia de las transacciones intercompañía dentro y fuera del país.</p>
+                  </div>
+
+                  <div class="detail-block" id="mpa-apa">
+                    <p class="detail-num">04 — Negociación de MPA y APA</p>
+                    <h3>Negociación de MPA y APA</h3>
+                    <p>Asesoramos en mecanismos preventivos y de eliminación de doble imposición, incluyendo Procedimientos de Acuerdo Mutuo (MPA/MAP) y Acuerdos Anticipados (APA) donde estén disponibles. Evaluamos viabilidad, definimos el caso técnico, preparamos la documentación y acompañamos la negociación con autoridades. Buscamos certeza tributaria, reducción de riesgos y estabilidad de márgenes.</p>
+                  </div>
+
+                  <div class="detail-block" id="planificacion">
+                    <p class="detail-num">05 — Planificación, Modelos Operativos y Restructuraciones</p>
+                    <h3>Planificación, Modelos Operativos y Restructuraciones</h3>
+                    <p>Diseñamos la política de precios de transferencia antes de ejecutar transacciones relevantes: bienes, servicios, intangibles y financiamiento intragrupo. Definimos roles y riesgos, seleccionamos métodos, fijamos rangos objetivo y mecanismos de ajuste, y alineamos contratos con la operación real. El resultado: decisiones informadas, menor exposición y un relato defendible a lo largo del tiempo.</p>
+                  </div>
+
+                  <div class="detail-block" id="ajustes">
+                    <p class="detail-num">06 — Ajustes y Convenios de Doble Tributación</p>
+                    <h3>Ajustes y Convenios de Doble Tributación</h3>
+                    <p>Asesoramos en el uso de la legislación en materia de doble tributación para recuperar ajustes de precios de transferencia transfronterizos. Un ajuste en una jurisdicción debería traer un ajuste en la jurisdicción de la contraparte para cumplir con los convenios.</p>
+                  </div>
+
+                </div>
+
+                <!-- SIDEBAR -->
+                <div class="col-lg-4 d-none d-lg-block">
+                  <div class="service-sidebar">
+                    <p class="sidebar-title">En esta página</p>
+                    <a class="sidebar-link active" href="#obligaciones">Obligaciones Periódicas y Documentación</a>
+                    <a class="sidebar-link" href="#controversias">Controversias</a>
+                    <a class="sidebar-link" href="#value-chain">Value Chain Alignment</a>
+                    <a class="sidebar-link" href="#mpa-apa">Negociación de MPA y APA</a>
+                    <a class="sidebar-link" href="#planificacion">Planificación y Restructuraciones</a>
+                    <a class="sidebar-link" href="#ajustes">Ajustes y Doble Tributación</a>
+
+                    <div class="mt-4 pt-4" style="border-top:1px solid rgba(194,194,194,0.3);">
+                      <p class="sidebar-title">Otros servicios</p>
+                      <a class="sidebar-link" href="asesoria-financiera.html">Consultoría Financiera</a>
+                      <a class="sidebar-link" href="consultoria-economica.html">Consultoría Económica</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- CTA -->
+          <section class="py-section" style="background-color: var(--color-azul-marino); color: var(--color-marfil);">
+            <div class="container">
+              <div class="row gx-5 align-items-center">
+                <div class="col-md-7">
+                  <h2 style="color:var(--color-marfil);">¿Necesita asesoría en<strong> precios de transferencia</strong>?</h2>
+                  <p class="mt-3" style="color:var(--color-azul-grisaceo); font-size:clamp(15px,1.3vw,18px);">Hablemos sobre sus desafíos. Nuestro equipo está listo para acompañarle.</p>
+                </div>
+                <div class="col-md-5 mt-4 mt-md-0">
+                  <a href="index.html#contacto" class="btn btn-bold" style="background:transparent; color:var(--color-marfil); border-color:var(--color-marfil);">Contactar ahora <i class="bi bi-arrow-right ms-2"></i></a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="py-section">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+              <div class="col">
+                <img class="mb-4" src="logo-footer.svg" width="200" />
+                <p>+569 9584 6642</p>
+                <a>info@boldeconomics.com</a><br />
+                <a class="mt-4" style="font-size:24px" href="https://www.linkedin.com/company/bold-economics/"><i class="bi bi-linkedin"></i></a>
+              </div>
+              <div class="col">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="servicios.html">Servicios</a></li>
+                  <li class="nav-item"><a class="nav-link" href="industrias.html">Industrias</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Red Internacional</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container text-center">
+            <small>&copy; 2026 Bold Economics</small><br />
+            <small>Desarrollado por <a href="https://www.maggiore.cl">Maggiore</a></small>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollToPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/SplitText.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      // Smooth scroll + active states
+      document.addEventListener("DOMContentLoaded", () => {
+        // Sub-nav click: highlight active
+        document.querySelectorAll("#subNav .sub-nav-item").forEach(item => {
+          item.addEventListener("click", () => {
+            document.querySelectorAll("#subNav .sub-nav-item").forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+          });
+        });
+
+        // Sidebar scroll spy
+        const sections = ["obligaciones","controversias","value-chain","mpa-apa","planificacion","ajustes"];
+        const sideLinks = document.querySelectorAll(".sidebar-link");
+        function onScroll() {
+          let current = sections[0];
+          sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && window.scrollY >= el.offsetTop - 120) current = id;
+          });
+          sideLinks.forEach(l => {
+            l.classList.toggle("active", l.getAttribute("href") === "#" + current);
+          });
+        }
+        window.addEventListener("scroll", onScroll);
+      });
+    </script>
+  </body>
+</html>
