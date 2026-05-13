@@ -251,13 +251,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
       });
       activateIndustryDesktop(0);
     } else {
-      // Mobile: click toggles inline panel below trigger
-      industryLinks.forEach((link,i) => {
+      // Mobile: start fully closed, click toggles inline panel below trigger
+      industryLinks.forEach(l => l.classList.remove("active"));
+      industryPanelsInline.forEach(p => p.classList.remove("active"));
+
+      industryLinks.forEach((link, i) => {
         link.addEventListener("click", e => {
           e.preventDefault();
           const isOpen = link.classList.contains("active");
+          // close all
           industryLinks.forEach(l => l.classList.remove("active"));
           industryPanelsInline.forEach(p => p.classList.remove("active"));
+          // open this one if it was closed
           if (!isOpen) {
             link.classList.add("active");
             if (industryPanelsInline[i]) industryPanelsInline[i].classList.add("active");
