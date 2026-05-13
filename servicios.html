@@ -4,206 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Servicios | Bold Economics</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="style.css" />
-    <style>
-      /* ── HERO SERVICIOS ─────────────────────────────────────────── */
-      .hero-servicios {
-        position: relative;
-        overflow: hidden;
-        background-color: var(--color-azul-marino);
-        color: var(--color-marfil);
-        padding: clamp(120px, 14vw, 180px) 0 clamp(60px, 8vw, 100px);
-        min-height: clamp(340px, 44vh, 500px);
-        display: flex;
-        align-items: flex-end;
-      }
-      .hero-servicios::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, var(--color-azul-marino) 55%, var(--color-azul-oscuro) 100%);
-        z-index: 0;
-      }
-      .hero-servicios .hero-deco {
-        position: absolute;
-        right: -60px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: clamp(240px, 34vw, 480px);
-        height: clamp(240px, 34vw, 480px);
-        border: 1px solid rgba(234,233,225,0.08);
-        z-index: 0;
-      }
-      .hero-servicios .hero-deco-2 {
-        position: absolute;
-        right: 60px;
-        top: 50%;
-        transform: translateY(-55%);
-        width: clamp(180px, 24vw, 340px);
-        height: clamp(180px, 24vw, 340px);
-        border: 1px solid rgba(214,73,51,0.18);
-        z-index: 0;
-      }
-      .hero-servicios .container { position: relative; z-index: 1; }
-      .breadcrumb-bold {
-        font-size: 13px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--color-azul-grisaceo);
-        margin-bottom: 16px;
-      }
-      .breadcrumb-bold a { color: var(--color-azul-grisaceo); text-decoration: none; }
-      .breadcrumb-bold a:hover { color: var(--color-marfil); }
-
-      /* ── SERVICES ACCORDEON SECTION ─────────────────────────────── */
-      .services-layout {
-        display: grid;
-        grid-template-columns: minmax(280px, 0.42fr) 1fr;
-        min-height: 440px;
-      }
-      .services-list {
-        display: flex;
-        flex-direction: column;
-        border-right: 1px solid rgba(194,194,194,0.3);
-      }
-      .service-link {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        text-decoration: none;
-        color: var(--color-azul-oscuro);
-        font-weight: 500;
-        font-size: clamp(16px, 1.5vw, 20px);
-        font-family: var(--font-display);
-        min-height: 72px;
-        padding: 18px clamp(18px, 2.4vw, 32px);
-        border-bottom: 1px solid rgba(194,194,194,0.3);
-        background-color: var(--color-marfil);
-        transition: all 220ms ease;
-        line-height: 1.2;
-      }
-      .service-link:last-child { border-bottom: none; }
-      .service-link .arrow-icon {
-        flex-shrink: 0;
-        margin-left: 12px;
-        font-size: 18px;
-        opacity: 0;
-        transform: translateX(-6px);
-        transition: all 220ms ease;
-        color: var(--color-rojo-coral);
-      }
-      .service-link:hover,
-      .service-link.active {
-        background-color: whitesmoke;
-        color: var(--color-rojo-coral);
-        border-bottom-color: var(--color-rojo-coral);
-      }
-      .service-link:hover .arrow-icon,
-      .service-link.active .arrow-icon {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      .service-panel {
-        display: none;
-        padding: clamp(32px, 4vw, 56px) clamp(28px, 4vw, 56px);
-        flex-direction: column;
-        justify-content: center;
-        animation: slideIn 220ms ease;
-      }
-      .service-panel.active { display: flex; }
-      .service-panel h3 {
-        font-family: var(--font-display);
-        color: var(--color-azul-oscuro);
-        font-size: clamp(22px, 2.4vw, 34px);
-        margin-bottom: 16px;
-        line-height: 1.1;
-      }
-      .service-panel p {
-        font-size: clamp(15px, 1.3vw, 18px);
-        color: var(--color-azul-oscuro);
-        max-width: 580px;
-        line-height: 1.5;
-        margin-bottom: 28px;
-      }
-      .service-panel .btn-bold {
-        align-self: flex-start;
-      }
-
-      /* ── SERVICES GRID (SUB-ITEMS) ──────────────────────────────── */
-      .service-sub-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 2px;
-        background-color: rgba(194,194,194,0.2);
-      }
-      .sub-card {
-        background-color: whitesmoke;
-        padding: clamp(20px, 2.4vw, 32px);
-        text-decoration: none;
-        color: var(--color-azul-oscuro);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        transition: all 220ms ease;
-        border-left: 3px solid transparent;
-      }
-      .sub-card:hover {
-        background-color: var(--color-marfil);
-        border-left-color: var(--color-rojo-coral);
-        color: var(--color-azul-marino);
-      }
-      .sub-card .sub-num {
-        font-size: 11px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--color-azul-grisaceo);
-        font-weight: 600;
-      }
-      .sub-card .sub-title {
-        font-family: var(--font-display);
-        font-size: clamp(14px, 1.2vw, 17px);
-        font-weight: 600;
-        line-height: 1.25;
-      }
-      .sub-card .sub-arrow {
-        margin-top: auto;
-        font-size: 16px;
-        color: var(--color-rojo-coral);
-        opacity: 0;
-        transform: translateX(-4px);
-        transition: all 220ms ease;
-      }
-      .sub-card:hover .sub-arrow {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
-      @media (max-width: 767.98px) {
-        .services-layout {
-          grid-template-columns: 1fr;
-          min-height: auto;
-        }
-        .service-link { font-size: 17px; min-height: 60px; }
-        .service-panel { padding: 24px 20px; }
-        .service-panel.active { display: flex; }
-      }
-    </style>
   </head>
   <body>
     <div class="wrapper">
       <div class="content">
 
-        <!-- NAV -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-color">
           <div class="container">
             <a class="navbar-brand" href="index.html"><img src="logo.svg" width="100" /></a>
@@ -213,7 +21,16 @@
             <div class="collapse navbar-collapse" id="navMenu">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link active" href="servicios.html">Servicios</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle" href="servicios.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Servicios</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="servicios.html">Todos los Servicios</a></li>
+                    <li><hr class="dropdown-divider" style="border-color:rgba(255,255,255,0.1)"></li>
+                    <li><a class="dropdown-item" href="precios-transferencia.html">Precios de Transferencia y T. Internacional</a></li>
+                    <li><a class="dropdown-item" href="asesoria-financiera.html">Consultoría Financiera</a></li>
+                    <li><a class="dropdown-item" href="consultoria-economica.html">Consultoría Económica</a></li>
+                  </ul>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="industrias.html">Industrias</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Red Internacional</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
@@ -223,107 +40,67 @@
           </div>
         </nav>
 
-        <!-- HERO -->
-        <header class="hero-servicios">
-          <div class="hero-deco"></div>
-          <div class="hero-deco-2"></div>
+        <header class="hero-inner">
           <div class="container">
             <p class="breadcrumb-bold"><a href="index.html">Inicio</a> / Servicios</p>
-            <h1 class="split" style="font-size: clamp(38px,6vw,64px); max-width:700px;">
-              Nuestros <strong>Servicios</strong>
-            </h1>
-            <p class="mt-3" style="max-width:540px; font-size:clamp(15px,1.4vw,19px); color:var(--color-azul-grisaceo); line-height:1.5;">
-              Expertise técnico, visión global e integralidad para enfrentar los desafíos más complejos de sus operaciones.
-            </p>
+            <h1 class="split">Nuestros <strong>Servicios</strong></h1>
           </div>
         </header>
 
         <main>
-          <!-- SERVICES ACCORDEON -->
-          <section>
+          <section class="py-section" style="padding-bottom:0">
             <div class="container-fluid px-0">
               <div class="services-layout" role="tablist" aria-label="Servicios Bold">
-
-                <!-- LEFT: service list -->
                 <div class="services-list">
-                  <a class="service-link active"
-                     id="tab-pt" href="precios-transferencia.html"
-                     role="tab" aria-selected="true" aria-controls="panel-pt"
-                     data-panel="panel-pt">
+                  <a class="service-link active" data-panel="panel-pt" href="precios-transferencia.html" role="tab" aria-selected="true">
                     Precios de Transferencia y Tributación Internacional
                     <i class="bi bi-arrow-right arrow-icon"></i>
                   </a>
-                  <a class="service-link"
-                     id="tab-af" href="asesoria-financiera.html"
-                     role="tab" aria-selected="false" aria-controls="panel-af"
-                     data-panel="panel-af">
+                  <a class="service-link" data-panel="panel-af" href="asesoria-financiera.html" role="tab" aria-selected="false">
                     Consultoría Financiera
                     <i class="bi bi-arrow-right arrow-icon"></i>
                   </a>
-                  <a class="service-link"
-                     id="tab-ce" href="consultoria-economica.html"
-                     role="tab" aria-selected="false" aria-controls="panel-ce"
-                     data-panel="panel-ce">
+                  <a class="service-link" data-panel="panel-ce" href="consultoria-economica.html" role="tab" aria-selected="false">
                     Consultoría Económica
                     <i class="bi bi-arrow-right arrow-icon"></i>
                   </a>
                 </div>
-
-                <!-- RIGHT: panels -->
-                <div style="        background-color: whitesmoke;
-">
-                  <!-- Panel PT -->
-                  <div class="service-panel active" id="panel-pt" role="tabpanel">
+                <div>
+                  <div class="service-panel active" id="panel-pt">
                     <h3>Precios de Transferencia y Tributación Internacional</h3>
-                    <p>
-                      Prevención de controversias y cumplimiento robusto. Diseñamos políticas de precios de
-                      transferencia defendibles y sostenibles, asegurando trazabilidad y consistencia global.
-                    </p>
+                    <p>Prevención de controversias y cumplimiento robusto. Diseñamos políticas de precios de transferencia defendibles y sostenibles, asegurando trazabilidad y consistencia global.</p>
                     <a href="precios-transferencia.html" class="btn btn-bold">Conocer más <i class="bi bi-arrow-right ms-2"></i></a>
                   </div>
-                  <!-- Panel AF -->
-                  <div class="service-panel" id="panel-af" role="tabpanel">
+                  <div class="service-panel" id="panel-af">
                     <h3>Consultoría Financiera</h3>
-                    <p>
-                      Credibilidad financiera y precisión técnica. Realizamos valoraciones, due diligence y cálculos
-                      para IFRS con un enfoque económico que asegura consistencia y resiste cualquier revisión externa.
-                    </p>
+                    <p>Credibilidad financiera y precisión técnica. Realizamos valoraciones, due diligence y cálculos para IFRS con un enfoque económico que asegura consistencia y resiste cualquier revisión externa.</p>
                     <a href="asesoria-financiera.html" class="btn btn-bold">Conocer más <i class="bi bi-arrow-right ms-2"></i></a>
                   </div>
-                  <!-- Panel CE -->
-                  <div class="service-panel" id="panel-ce" role="tabpanel">
+                  <div class="service-panel" id="panel-ce">
                     <h3>Consultoría Económica</h3>
-                    <p>
-                      Donde la persuasión se une al rigor analítico. Traducimos la teoría económica en argumentos
-                      estructurados para fortalecer la credibilidad ante tribunales, reguladores y directorios.
-                    </p>
+                    <p>Donde la persuasión se une al rigor analítico. Traducimos la teoría económica en argumentos estructurados para fortalecer la credibilidad ante tribunales, reguladores y directorios.</p>
                     <a href="consultoria-economica.html" class="btn btn-bold">Conocer más <i class="bi bi-arrow-right ms-2"></i></a>
                   </div>
                 </div>
-
               </div>
             </div>
           </section>
 
-          <!-- CONTACT SECTION -->
           <section class="py-section">
             <form class="container my-4">
               <div class="row row-cols-md-2 row-cols-1 gx-5 gy-4 align-items-center">
                 <div class="col">
-                  <h2 class="mb-4 one-liner">
-                    Sea parte de nuestra historia de <strong>éxito</strong>.
-                    Démosle forma al <strong>futuro</strong>
-                  </h2>
+                  <h2 class="mb-4 one-liner">Sea parte de nuestra historia de <strong>éxito</strong>. Démosle forma al <strong>futuro</strong></h2>
                 </div>
                 <div class="col">
                   <div class="row g-3">
                     <div class="col-12">
-                      <label for="nombreApellido" class="form-label">Nombre y Apellido*</label>
-                      <input type="text" class="form-control" id="nombreApellido" placeholder="Ingrese su nombre y apellido" required />
+                      <label for="nombre" class="form-label">Nombre y Apellido*</label>
+                      <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre y apellido" required />
                     </div>
                     <div class="col-12">
-                      <label for="correoInstitucional" class="form-label">Correo Institucional*</label>
-                      <input type="email" class="form-control" id="correoInstitucional" placeholder="Correo electrónico" required />
+                      <label for="correo" class="form-label">Correo Institucional*</label>
+                      <input type="email" class="form-control" id="correo" placeholder="Correo electrónico" required />
                     </div>
                     <div class="col-12">
                       <label for="tema" class="form-label">¿Sobre qué vamos a hablar?*</label>
@@ -337,9 +114,7 @@
                       <label for="hora" class="form-label">Hora*</label>
                       <input type="time" class="form-control" id="hora" required />
                     </div>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-bold">¡Hablemos!</button>
-                    </div>
+                    <div class="col-12"><button type="submit" class="btn btn-bold">¡Hablemos!</button></div>
                   </div>
                 </div>
               </div>
@@ -347,18 +122,14 @@
           </section>
         </main>
 
-        <!-- FOOTER -->
         <footer class="py-section">
           <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
               <div class="col">
                 <img class="mb-4" src="logo-footer.svg" width="200" />
                 <p>+569 9584 6642</p>
-                <a>info@boldeconomics.com</a>
-                <br />
-                <a class="mt-4" style="font-size:24px" href="https://www.linkedin.com/company/bold-economics/">
-                  <i class="bi bi-linkedin"></i>
-                </a>
+                <a>info@boldeconomics.com</a><br />
+                <a class="mt-4" style="font-size:24px" href="https://www.linkedin.com/company/bold-economics/"><i class="bi bi-linkedin"></i></a>
               </div>
               <div class="col">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -380,7 +151,6 @@
 
       </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
@@ -388,33 +158,5 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollToPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/SplitText.min.js"></script>
     <script src="main.js"></script>
-    <script>
-      // Services hover tabs (desktop: hover; mobile: click)
-      document.addEventListener("DOMContentLoaded", () => {
-        const links = Array.from(document.querySelectorAll(".service-link"));
-        const panels = Array.from(document.querySelectorAll(".service-panel"));
-
-        function activateService(index) {
-          links.forEach((l, i) => {
-            l.classList.toggle("active", i === index);
-            l.setAttribute("aria-selected", i === index ? "true" : "false");
-          });
-          panels.forEach((p, i) => p.classList.toggle("active", i === index));
-        }
-
-        links.forEach((link, index) => {
-          // hover on desktop
-          link.addEventListener("mouseenter", () => activateService(index));
-          // click: on mobile activate; on desktop navigate
-          link.addEventListener("click", (e) => {
-            if (window.innerWidth < 768) {
-              e.preventDefault();
-              activateService(index);
-            }
-            // desktop: follow href naturally
-          });
-        });
-      });
-    </script>
   </body>
 </html>

@@ -205,3 +205,68 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   //end of DOM CONTENT LOADED
 });
+
+  // ── SERVICE TABS (01/02/03 tab system on service pages) ──────
+  document.querySelectorAll(".service-tabs-wrap").forEach(wrap => {
+    const btns = Array.from(wrap.querySelectorAll(".service-tab-btn"));
+    const panels = Array.from(wrap.querySelectorAll(".service-tab-panel"));
+    if (!btns.length) return;
+    function activateTab(i) {
+      btns.forEach((b,idx) => b.classList.toggle("active", idx === i));
+      panels.forEach((p,idx) => p.classList.toggle("active", idx === i));
+    }
+    btns.forEach((btn,i) => btn.addEventListener("click", () => activateTab(i)));
+    activateTab(0);
+  });
+
+  // ── SERVICES LANDING HOVER PANELS ────────────────────────────
+  const serviceLinks = Array.from(document.querySelectorAll(".service-link[data-panel]"));
+  const servicePanels = Array.from(document.querySelectorAll(".service-panel"));
+  if (serviceLinks.length) {
+    function activateServicePanel(i) {
+      serviceLinks.forEach((l,idx) => { l.classList.toggle("active", idx===i); l.setAttribute("aria-selected", idx===i?"true":"false"); });
+      servicePanels.forEach((p,idx) => p.classList.toggle("active", idx===i));
+    }
+    serviceLinks.forEach((link,i) => {
+      link.addEventListener("mouseenter", () => activateServicePanel(i));
+      link.addEventListener("click", e => { if(window.innerWidth < 768){ e.preventDefault(); activateServicePanel(i); } });
+    });
+  }
+
+  // ── INDUSTRIES HOVER (desktop) / ACCORDION (mobile) ──────────
+  const industryLinks = Array.from(document.querySelectorAll(".industry-link"));
+  const industryPanels = Array.from(document.querySelectorAll(".industry-panel"));
+  if (industryLinks.length) {
+    function activateIndustry(i) {
+      industryLinks.forEach((l,idx) => l.classList.toggle("active", idx===i));
+      industryPanels.forEach((p,idx) => p.classList.toggle("active", idx===i));
+    }
+    if (window.innerWidth >= 768) {
+      industryLinks.forEach((link,i) => {
+        link.addEventListener("mouseenter", () => activateIndustry(i));
+        link.addEventListener("click", e => e.preventDefault());
+      });
+      activateIndustry(0);
+    } else {
+      industryLinks.forEach((link,i) => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          const isOpen = link.classList.contains("active");
+          industryLinks.forEach(l => l.classList.remove("active"));
+          industryPanels.forEach(p => p.classList.remove("active"));
+          if (!isOpen) activateIndustry(i);
+        });
+      });
+    }
+  }
+
+  // ── SIDEBAR SCROLL SPY ────────────────────────────────────────
+  const spySections = Array.from(document.querySelectorAll("[data-spy]"));
+  const spyLinks = Array.from(document.querySelectorAll(".sidebar-link[href^='#']"));
+  if (spySections.length && spyLinks.length) {
+    window.addEventListener("scroll", () => {
+      let current = spySections[0]?.id || "";
+      spySections.forEach(el => { if(window.scrollY >= el.offsetTop - 130) current = el.id; });
+      spyLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#"+current));
+    }, { passive:true });
+  }
