@@ -826,3 +826,56 @@ footer .nav-link {
 
 /* ── INDUSTRIES PANELS CONTAINER ───────────────────────────── */
 .industries-panels { overflow:hidden; }
+
+/* ── INDUSTRIES: dual-mode layout ───────────────────────────── */
+/* Desktop: left list + right panel (original grid) */
+.industries-layout {
+  grid-template-columns: minmax(260px,0.4fr) 1fr;
+}
+.industries-panels-desktop {
+  overflow: hidden;
+}
+/* Inline panels hidden on desktop */
+.industry-panel-inline { display: none !important; }
+
+/* Mobile: full accordion — inline panels, no right column */
+@media (max-width: 767.98px) {
+  .industries-layout {
+    display: block;
+  }
+  .industries-panels-desktop { display: none !important; }
+  .industry-panel-inline {
+    display: none !important; /* default hidden */
+    padding: 20px 18px;
+    border-left: 3px solid var(--color-rojo-coral);
+    background-color: whitesmoke;
+    animation: slideDown 200ms ease;
+    margin-bottom: 0;
+  }
+  .industry-panel-inline.active {
+    display: block !important;
+  }
+  .industry-panel-inline h3 { font-size: 18px; margin-bottom: 10px; }
+  .industry-panel-inline p { font-size: 15px; line-height: 1.5; margin-bottom: 16px; }
+  .industry-link {
+    font-size: 15px;
+    min-height: 56px;
+    border-bottom: 1px solid rgba(194,194,194,0.3) !important;
+    background-color: var(--color-marfil);
+  }
+  .industry-link .arrow-icon {
+    opacity: 1;
+    transform: none;
+    transition: transform 220ms ease;
+    color: var(--color-rojo-coral);
+  }
+  .industry-link.active {
+    background-color: var(--color-azul-marino);
+    color: var(--color-marfil);
+    border-bottom-color: var(--color-azul-marino) !important;
+  }
+  .industry-link.active .arrow-icon {
+    color: var(--color-marfil);
+    transform: rotate(180deg);
+  }
+}

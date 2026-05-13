@@ -235,26 +235,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // ── INDUSTRIES HOVER (desktop) / ACCORDION (mobile) ──────────
   const industryLinks = Array.from(document.querySelectorAll(".industry-link"));
-  const industryPanels = Array.from(document.querySelectorAll(".industry-panel"));
+  const industryPanelsDesktop = Array.from(document.querySelectorAll(".industries-panels-desktop .industry-panel"));
+  const industryPanelsInline = Array.from(document.querySelectorAll(".industry-panel-inline"));
+
   if (industryLinks.length) {
-    function activateIndustry(i) {
-      industryLinks.forEach((l,idx) => l.classList.toggle("active", idx===i));
-      industryPanels.forEach((p,idx) => p.classList.toggle("active", idx===i));
-    }
     if (window.innerWidth >= 768) {
+      // Desktop: hover activates right-column panel
+      function activateIndustryDesktop(i) {
+        industryLinks.forEach((l,idx) => l.classList.toggle("active", idx===i));
+        industryPanelsDesktop.forEach((p,idx) => p.classList.toggle("active", idx===i));
+      }
       industryLinks.forEach((link,i) => {
-        link.addEventListener("mouseenter", () => activateIndustry(i));
+        link.addEventListener("mouseenter", () => activateIndustryDesktop(i));
         link.addEventListener("click", e => e.preventDefault());
       });
-      activateIndustry(0);
+      activateIndustryDesktop(0);
     } else {
+      // Mobile: click toggles inline panel below trigger
       industryLinks.forEach((link,i) => {
         link.addEventListener("click", e => {
           e.preventDefault();
           const isOpen = link.classList.contains("active");
           industryLinks.forEach(l => l.classList.remove("active"));
-          industryPanels.forEach(p => p.classList.remove("active"));
-          if (!isOpen) activateIndustry(i);
+          industryPanelsInline.forEach(p => p.classList.remove("active"));
+          if (!isOpen) {
+            link.classList.add("active");
+            if (industryPanelsInline[i]) industryPanelsInline[i].classList.add("active");
+          }
         });
       });
     }
