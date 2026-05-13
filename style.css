@@ -249,6 +249,7 @@ strong {
   overflow: hidden;
   aspect-ratio: 4 / 5;
   min-height: 260px;
+    transition: all 300ms ease;
 }
 
 .card-service .card-img {
@@ -263,7 +264,7 @@ strong {
   inset: 0;
   background-color: rgba(11, 37, 69, 0.8);
   z-index: 1;
-  pointer-events: none;
+  pointer-events: none;transition: all ease 300ms;
 }
 
 .card-service .card-img-overlay {
@@ -297,6 +298,19 @@ strong {
 .card-service:hover .card-img {
   transform: scale(1.1);
   transition: all 300ms ease;
+}
+.card-service:hover {
+  transform: translateY(-10px);
+  transition: all 300ms ease;
+}
+.card-service:hover:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(11, 37, 69, 0.4);
+  z-index: 1;
+  pointer-events: none;
+  transition: all ease 300ms;
 }
 /* CONTENEDOR DE PARTÍCULAS */
 .hero-particles {
@@ -517,10 +531,17 @@ footer .nav-link {
   }
 }
 .carousel-cards .card{
-  background-color: rgba(100, 100, 100, 0.02) !important; 
-  backdrop-filter: blur(20px) ;
-  color:white !important;
-  border: rgba(255, 255, 255, 0.432) 1px solid !important;
+background: transparent !important;
+color: white !important;
+border: none !important;
+border-left: var(--color-rojo-coral) 5px solid !important;
+padding:0 !important;
+font-family: var(--font-display);
+}
+.carousel-cards .h1{
+  margin-left: 20px;
+  font-size: 46px !important;
+  line-height: 1;
 }
 .carousel-cards .btn-bold {
   background-color: #0b254500;
