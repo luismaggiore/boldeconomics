@@ -693,7 +693,7 @@ font-family: var(--font-display);
   display:grid;
   grid-template-columns:minmax(280px,0.42fr) 1fr;
   min-height:440px;
-  background-color:var(--color-marfil);
+  background-color:white;
 }
 .services-list {
   display:flex; flex-direction:column;
@@ -744,7 +744,7 @@ font-family: var(--font-display);
   display:grid;
   grid-template-columns:minmax(260px,0.4fr) 1fr;
   min-height:520px;
-  background-color:var(--color-marfil);
+  background-color:white;
 }
 .industries-list {
   display:flex; flex-direction:column;
@@ -876,6 +876,8 @@ font-family: var(--font-display);
 }
 .industries-panels-desktop {
   overflow: hidden;
+  background-color: white;
+}
 }
 /* Inline panels hidden on desktop only */
 @media (min-width: 768px) {
