@@ -965,3 +965,24 @@ font-family: var(--font-display);
   font-weight: 500;
   margin-bottom: 16px !important;
 }
+.blog-quote {
+  margin: 32px 0;
+  padding: 24px 32px;
+  border-left: 4px solid var(--color-rojo-coral);
+  background-color: whitesmoke;
+}
+.blog-quote p {
+  font-size: clamp(16px, 1.3vw, 19px) !important;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--color-azul-oscuro);
+  margin-bottom: 12px !important;
+}
+.blog-quote cite {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-rojo-coral);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
