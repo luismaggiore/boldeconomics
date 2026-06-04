@@ -282,3 +282,106 @@ document.addEventListener("DOMContentLoaded", (event) => {
       spyLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#"+current));
     }, { passive:true });
   }
+
+  // ── HEADER CANVAS: floating squares ──────────────────────────
+  (function() {
+    const COLORS = [
+      'rgba(11,37,69,',    // azul marino
+      'rgba(214,73,51,',   // rojo coral
+      'rgba(192,133,82,',  // camel
+      'rgba(141,153,174,', // azul grisáceo
+      'rgba(45,49,66,',    // azul oscuro
+      'rgba(234,233,225,', // marfil
+    ];
+
+    const SIZES = [14, 20, 28, 36, 48, 64, 80, 96];
+
+    function initCanvas(hero) {
+      const canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+      // Insert before ::after pseudo (which is z-index:0 overlay) — put canvas at z-index 0, text at z-index 1
+      hero.insertBefore(canvas, hero.firstChild);
+
+      const ctx = canvas.getContext('2d');
+      let W, H, squares, raf;
+
+      function resize() {
+        W = canvas.width  = hero.offsetWidth;
+        H = canvas.height = hero.offsetHeight;
+      }
+
+      function makeSquare() {
+        const size  = SIZES[Math.floor(Math.random() * SIZES.length)];
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        return {
+          x:     Math.random() * (W - size),
+          y:     Math.random() * (H - size),
+          size,
+          color,
+          alpha:  0,
+          target: Math.random() * 0.18 + 0.04,   // max opacity 4–22%
+          speed:  Math.random() * 0.004 + 0.002,  // fade speed
+          phase: 'in',   // in → hold → out
+          hold:  0,
+          holdMax: Math.random() * 140 + 60,      // frames to hold
+        };
+      }
+
+      function init() {
+        resize();
+        // seed with ~30 squares at various phases
+        squares = Array.from({ length: 30 }, () => {
+          const sq = makeSquare();
+          sq.alpha  = Math.random() * sq.target;
+          sq.phase  = Math.random() < 0.5 ? 'hold' : 'in';
+          sq.hold   = Math.random() * sq.holdMax;
+          return sq;
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        squares.forEach(sq => {
+          // update alpha
+          if (sq.phase === 'in') {
+            sq.alpha += sq.speed;
+            if (sq.alpha >= sq.target) { sq.alpha = sq.target; sq.phase = 'hold'; }
+          } else if (sq.phase === 'hold') {
+            sq.hold++;
+            if (sq.hold >= sq.holdMax) sq.phase = 'out';
+          } else {
+            sq.alpha -= sq.speed;
+            if (sq.alpha <= 0) {
+              // recycle
+              Object.assign(sq, makeSquare());
+            }
+          }
+
+          ctx.fillStyle = sq.color + sq.alpha + ')';
+          ctx.fillRect(sq.x, sq.y, sq.size, sq.size);
+        });
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      // pause when off-screen for perf
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          if (!raf) draw();
+        } else {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+      }, { threshold: 0 });
+      obs.observe(hero);
+
+      window.addEventListener('resize', () => { resize(); }, { passive: true });
+
+      init();
+      draw();
+    }
+
+    // Apply to .hero-inner and .hero
+    document.querySelectorAll('.hero-inner, .hero').forEach(initCanvas);
+  })();
