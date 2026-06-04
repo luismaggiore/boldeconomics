@@ -742,11 +742,12 @@ font-family: var(--font-display);
   display:grid;
   grid-template-columns:minmax(260px,0.4fr) 1fr;
   min-height:520px;
-  background-color:whitesmoke;
+  background-color:var(--color-marfil);
 }
 .industries-list {
   display:flex; flex-direction:column;
   border-right:1px solid rgba(194,194,194,0.3);
+  background-color:var(--color-marfil);
 }
 .industry-link {
   display:flex; align-items:center; justify-content:space-between;
@@ -765,7 +766,7 @@ font-family: var(--font-display);
 }
 .industry-link:hover,
 .industry-link.active {
-  background-color:whitesmoke; color:var(--color-rojo-coral);
+  background-color:var(--color-marfil); color:var(--color-rojo-coral);
   border-bottom-color:var(--color-rojo-coral);
 }
 .industry-link:hover .arrow-icon,
@@ -774,6 +775,7 @@ font-family: var(--font-display);
 .industry-panel {
   display:none; padding:clamp(32px,4vw,56px) clamp(28px,4vw,56px);
   flex-direction:column; justify-content:flex-start;
+  background-color:white;
   animation:slideIn 220ms ease;
 }
 .industry-panel.active { display:flex; }
