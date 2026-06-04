@@ -230,6 +230,14 @@ strong {
   height: 100%;
   overflow: hidden !important;
 }
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+.card .card-body .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
 .card-img-top {
   border-radius: 0px !important;
   object-fit: cover !important;
