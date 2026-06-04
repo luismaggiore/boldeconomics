@@ -244,6 +244,11 @@ strong {
   width: 100%;
   height: clamp(180px, 26vw, 220px);
   border: none !important;
+  display: block;
+  transition: opacity 200ms ease;
+}
+a:hover > .card-img-top {
+  opacity: 0.88;
 }
 .card-img {
   border-radius: 0px !important;
@@ -1001,8 +1006,9 @@ font-family: var(--font-display);
   gap: 20px;
   align-items: flex-start;
   padding: 24px;
-  background-color: whitesmoke;
-  border-left: 3px solid var(--color-rojo-coral);
+  background-color: white;
+  border-left: 4px solid var(--color-rojo-coral);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
 .red-feature-icon {
   font-size: 22px;
