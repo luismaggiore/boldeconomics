@@ -319,7 +319,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           size,
           color,
           alpha:  0,
-          target: Math.random() * 0.45 + 0.15,   // max opacity 15–60%
+          target: Math.random() * 0.5 + 0.4,   // max opacity 40–90%
           speed:  Math.random() * 0.004 + 0.002,  // fade speed
           phase: 'in',   // in → hold → out
           hold:  0,
