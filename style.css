@@ -994,3 +994,69 @@ font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
+/* ── Red Internacional ─────────────────────────────────────── */
+.red-feature {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  background-color: whitesmoke;
+  border-left: 3px solid var(--color-rojo-coral);
+}
+.red-feature-icon {
+  font-size: 22px;
+  color: var(--color-rojo-coral);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.red-feature-title {
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 700;
+  color: var(--color-azul-marino);
+  margin-bottom: 6px;
+}
+.red-feature-text {
+  font-size: clamp(14px, 1vw, 15px);
+  line-height: 1.65;
+  color: var(--color-azul-oscuro);
+  margin: 0;
+}
+.red-country-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px 28px;
+  background-color: var(--color-azul-marino);
+  color: var(--color-marfil);
+  height: 100%;
+}
+.red-country-card--accent {
+  background-color: var(--color-rojo-coral);
+}
+.red-country-flag {
+  font-size: 36px;
+  line-height: 1;
+}
+.red-country-name {
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+.red-country-desc {
+  font-size: clamp(14px, 1vw, 15px);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+.red-region-tag {
+  padding: 14px 18px;
+  background-color: whitesmoke;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-azul-marino);
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+}
