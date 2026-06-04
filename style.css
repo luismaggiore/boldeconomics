@@ -869,16 +869,11 @@ font-family: var(--font-display);
 /* ── INDUSTRIES PANELS CONTAINER ───────────────────────────── */
 .industries-panels { overflow:hidden; }
 
-/* ── INDUSTRIES: dual-mode layout ───────────────────────────── */
-/* Desktop: left list + right panel (original grid) */
-.industries-layout {
-  grid-template-columns: minmax(260px,0.4fr) 1fr;
-}
 .industries-panels-desktop {
   overflow: hidden;
   background-color: white;
 }
-}
+
 /* Inline panels hidden on desktop only */
 @media (min-width: 768px) {
   .industry-panel-inline { display: none !important; }
