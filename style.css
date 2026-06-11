@@ -796,7 +796,7 @@ font-family: var(--font-display);
 }
 .industry-panel p {
   font-size:clamp(15px,1.3vw,17px); color:var(--color-azul-oscuro);
-  max-width:560px; line-height:1.55; margin-bottom:28px;
+  line-height:1.55; margin-bottom:28px;
 }
 .industry-services { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
 .industry-badge {
