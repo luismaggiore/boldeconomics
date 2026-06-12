@@ -163,12 +163,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
       square.style.setProperty("--duration", `${duration}s`);
       square.style.setProperty("--delay", `${delay}s`);
       square.style.setProperty("--opacity", opacity);
-      const borderOpacity = (opacity * 0.25).toFixed(2);
-      const alpha = (opacity * 0.18).toFixed(2);
-      const gradient = `radial-gradient(circle at 40% 40%, ${color}22 0%, ${color}0a 60%, transparent 100%)`;
-      square.style.setProperty("--particle-color", gradient);
       const r = parseInt(color.slice(1,3),16), g = parseInt(color.slice(3,5),16), b = parseInt(color.slice(5,7),16);
-      square.style.setProperty("--border-color", `rgba(${r},${g},${b},${borderOpacity})`);
+      const gradient = `radial-gradient(circle at center, rgba(${r},${g},${b},0.18) 0%, rgba(${r},${g},${b},0.06) 55%, rgba(${r},${g},${b},0) 100%)`;
+      square.style.setProperty("--particle-color", gradient);
+      square.style.setProperty("--border-color", `rgba(${r},${g},${b},0.12)`);
 
       particlesContainer.appendChild(square);
     }
