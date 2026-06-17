@@ -588,6 +588,11 @@ font-family: var(--font-display);
 .hero-inner .container { position:relative; z-index:2; }
 .hero-inner h1 { color:var(--color-marfil); }
 
+.card-tag {
+  display:block; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:700; color:var(--color-rojo-coral); margin-bottom:6px;
+}
+
 .hero-tag {
   display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
   font-weight:700; padding:5px 12px; margin-bottom:18px; color:white;
