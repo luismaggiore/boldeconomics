@@ -592,6 +592,10 @@ font-family: var(--font-display);
   display:block; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
   font-weight:700; color:var(--color-rojo-coral); margin-bottom:6px;
 }
+.card-blue .card-tag,
+.card-orange .card-tag {
+  color: rgba(255,255,255,0.7);
+}
 
 .hero-tag {
   display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
