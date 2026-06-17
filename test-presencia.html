@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Test Presencia Global | Bold Economics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── MAPA ─────────────────────────────────────────────── */
+      .map-section {
+        background-color: #f5f4f0;
+        padding: 64px 0 48px;
+      }
+      .map-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        user-select: none;
+      }
+      .map-wrapper svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Marcadores — cuadrado pixelado estilo marca */
+      .map-marker {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+      }
+      .map-marker .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .map-marker:hover .dot {
+        transform: scale(1.4);
+        box-shadow: 0 0 0 3px rgba(255,255,255,0.6);
+      }
+      /* Presencia directa: coral */
+      .map-marker.direct .dot {
+        background-color: #D64933;
+        box-shadow: 0 0 0 2px rgba(214,73,51,0.3);
+      }
+      /* Red indirecta: azul marino */
+      .map-marker.indirect .dot {
+        background-color: #0B2545;
+        box-shadow: 0 0 0 2px rgba(11,37,69,0.3);
+      }
+
+      /* Tooltip */
+      .map-tooltip {
+        position: absolute;
+        background: #0B2545;
+        color: white;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        border-radius: 2px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 10;
+      }
+      .map-tooltip.direct-tooltip {
+        background: #D64933;
+      }
+      .map-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #0B2545;
+      }
+      .map-tooltip.direct-tooltip::after {
+        border-top-color: #D64933;
+      }
+      .map-tooltip.visible {
+        opacity: 1;
+        transform: translateY(-28px);
+      }
+
+      /* Leyenda */
+      .map-legend {
+        display: flex;
+        gap: 24px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .map-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-azul-oscuro, #0B2545);
+      }
+      .map-legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+      }
+      .map-legend-dot.direct { background: #D64933; }
+      .map-legend-dot.indirect { background: #0B2545; }
+
+      /* Texto inferior */
+      .red-indirecta-text {
+        max-width: 760px;
+        margin: 48px auto 0;
+      }
+      .red-indirecta-text h3 {
+        font-size: clamp(20px, 2vw, 26px);
+        color: #0B2545;
+        margin-bottom: 16px;
+      }
+      .red-indirecta-text p {
+        font-size: clamp(15px, 1.2vw, 17px);
+        line-height: 1.75;
+        color: #0B2545;
+      }
+      .section-divider {
+        width: 48px;
+        height: 3px;
+        background: #C08552;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-color">
+          <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="logo.svg" width="100" /></a>
+          </div>
+        </nav>
+
+        <section class="map-section">
+          <div class="container">
+            <h2 class="mb-2">Presencia <strong>global</strong></h2>
+            <p class="mb-4" style="font-size:clamp(15px,1.2vw,17px);color:#0B2545;max-width:640px;">
+              Contamos con presencia directa en Chile, Perú y Argentina, y con una red de profesionales en distintas jurisdicciones globales.
+            </p>
+
+            <div class="map-wrapper" id="mapWrapper">
+
+              <!-- SVG mapa mundial de puntos, estilo marca Bold -->
+              <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" id="worldMap">
+                <rect width="1000" height="500" fill="#f5f4f0"/>
+                <!-- Continentes como tramas de rectángulos 6x6 con gap 2 — generados por JS -->
+                <g id="mapDots"></g>
+              </svg>
+
+              <!-- Tooltip -->
+              <div class="map-tooltip" id="mapTooltip"></div>
+
+              <!-- Marcadores — coordenadas en % (left, top) relativas al SVG viewBox -->
+              <!-- PRESENCIA DIRECTA -->
+              <div class="map-marker direct" data-country="Chile" style="left:26.5%;top:79%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker direct" data-country="Perú" style="left:24%;top:71%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker direct" data-country="Argentina" style="left:27%;top:85%">
+                <div class="dot"></div>
+              </div>
+
+              <!-- RED INDIRECTA -->
+              <div class="map-marker indirect" data-country="Brasil" style="left:32%;top:72%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Paraguay" style="left:29%;top:78%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Ecuador" style="left:22%;top:64%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Colombia" style="left:23%;top:59%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Guatemala" style="left:17%;top:55%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="México" style="left:14%;top:49%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="República Dominicana" style="left:24%;top:50%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Estados Unidos" style="left:18%;top:40%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="España" style="left:46%;top:35%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Reino Unido" style="left:46%;top:26%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Sudáfrica" style="left:54%;top:78%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="India" style="left:69%;top:50%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Singapur" style="left:78%;top:62%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Australia" style="left:84%;top:76%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="Japón" style="left:87%;top:37%">
+                <div class="dot"></div>
+              </div>
+              <div class="map-marker indirect" data-country="China" style="left:80%;top:40%">
+                <div class="dot"></div>
+              </div>
+
+            </div><!-- /map-wrapper -->
+
+            <!-- Leyenda -->
+            <div class="map-legend mt-3">
+              <div class="map-legend-item">
+                <div class="map-legend-dot direct"></div>
+                Presencia directa
+              </div>
+              <div class="map-legend-item">
+                <div class="map-legend-dot indirect"></div>
+                Red indirecta
+              </div>
+            </div>
+
+            <!-- Texto Red indirecta -->
+            <div class="red-indirecta-text">
+              <div class="section-divider"></div>
+              <h3>Red indirecta en <strong>múltiples jurisdicciones</strong></h3>
+              <p>Más allá de nuestra presencia directa en el Cono Sur, contamos con una red de profesionales en distintas jurisdicciones que nos permite abordar proyectos con alcance verdaderamente global.</p>
+              <p class="mt-3">Cada nodo de nuestra red es un especialista reconocido en su mercado, con quien trabajamos bajo estándares técnicos compartidos y alineados con las directrices OCDE y la práctica internacional de mejores prácticas.</p>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <script>
+    // ── Generar mapa de puntos tipo Bold ──────────────────────
+    // Mapa mundial simplificado como grilla de celdas 8x8 px
+    // Representamos los continentes con coordenadas de celdas
+    const DOT = 5, GAP = 3, STEP = DOT + GAP;
+
+    // Polígonos aproximados de continentes en celdas (col, row) sobre grid de 125x62
+    const continents = [
+      // América del Norte
+      ...grid(12,8, 18,24), ...grid(10,10, 14,22), ...grid(18,8,26,18),
+      ...grid(14,18,22,28), ...grid(10,24,16,30),
+      // América Central y Caribe
+      ...grid(15,28,20,34), ...grid(20,28,25,32),
+      // América del Sur
+      ...grid(21,32,30,42), ...grid(23,40,33,56), ...grid(24,54,30,62),
+      // Europa
+      ...grid(44,8,56,20), ...grid(46,18,54,26), ...grid(50,20,58,28),
+      // África
+      ...grid(46,26,56,34), ...grid(44,32,60,50), ...grid(48,48,58,58),
+      // Asia
+      ...grid(56,6,90,16), ...grid(58,14,88,24), ...grid(60,22,86,34),
+      ...grid(62,30,82,40), ...grid(64,36,80,44),
+      // Oriente Medio
+      ...grid(55,24,64,34),
+      // Subcontinente Indio
+      ...grid(64,32,74,46),
+      // Sudeste Asiático
+      ...grid(76,38,88,50), ...grid(78,46,86,54),
+      // Australia
+      ...grid(80,50,96,60), ...grid(82,58,92,64),
+      // Groenlandia
+      ...grid(26,2,36,10),
+    ];
+
+    function grid(c1, r1, c2, r2) {
+      const cells = [];
+      for (let c = c1; c <= c2; c++)
+        for (let r = r1; r <= r2; r++)
+          cells.push([c, r]);
+      return cells;
+    }
+
+    const svg = document.getElementById('mapDots');
+    // Eliminar duplicados
+    const seen = new Set();
+    continents.forEach(([c, r]) => {
+      const key = `${c},${r}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', c * STEP);
+      rect.setAttribute('y', r * STEP);
+      rect.setAttribute('width', DOT);
+      rect.setAttribute('height', DOT);
+      rect.setAttribute('rx', '1');
+      rect.setAttribute('fill', '#c8ccd6');
+      svg.appendChild(rect);
+    });
+
+    // ── Tooltip interactivo ───────────────────────────────────
+    const tooltip = document.getElementById('mapTooltip');
+    const markers = document.querySelectorAll('.map-marker');
+
+    markers.forEach(marker => {
+      marker.addEventListener('mouseenter', () => {
+        const country = marker.dataset.country;
+        const isDirect = marker.classList.contains('direct');
+        tooltip.textContent = country;
+        tooltip.className = 'map-tooltip' + (isDirect ? ' direct-tooltip' : '');
+
+        // Posicionar tooltip sobre el marcador
+        const wrapperRect = document.getElementById('mapWrapper').getBoundingClientRect();
+        const markerRect = marker.getBoundingClientRect();
+        const left = markerRect.left - wrapperRect.left + markerRect.width / 2;
+        const top = markerRect.top - wrapperRect.top;
+
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+        tooltip.classList.add('visible');
+      });
+
+      marker.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible');
+      });
+    });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
